@@ -9,10 +9,10 @@ pluginManagement {
 
 rootProject.name = 'spring-boot-java-template'
 
-include 'core:core-enum'
-include 'core:core-api'
-include 'storage:db-core'
-include 'tests:api-docs'
-include 'support:logging'
-include 'support:monitoring'
-include 'clients:client-example'
+include 'soo-core:core-enum'
+include 'soo-core:core-api'
+include 'soo-storage:db-core'
+include 'soo-tests:api-docs'
+include 'soo-support:logging'
+include 'soo-support:monitoring'
+include 'soo-clients:client-login-kakao'
