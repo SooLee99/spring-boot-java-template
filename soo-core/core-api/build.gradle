@@ -2,11 +2,31 @@ bootJar.enabled = true
 jar.enabled = false
 
 dependencies {
+    /* --- 내부 모듈 --- */
     implementation project(":soo-core:core-enum")
     implementation project(":soo-support:monitoring")
     implementation project(":soo-support:logging")
     implementation project(":soo-storage:db-core")
     implementation project(":soo-clients:client-login-kakao")
     testImplementation project(":soo-tests:api-docs")
+
+    /* --- 스프링 스타터 --- */
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    /* --- JSON 라이브러리 추가 --- */
+    implementation 'org.json:json:20250107'
+
+    /* --- Lombok --- */
+    compileOnly           'org.projectlombok:lombok'
+    annotationProcessor   'org.projectlombok:lombok'
+    testCompileOnly       'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+/* annotationProcessor → compileOnly 관계 지정(선택) */
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }

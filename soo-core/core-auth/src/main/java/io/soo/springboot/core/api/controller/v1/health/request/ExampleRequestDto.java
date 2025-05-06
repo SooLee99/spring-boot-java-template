@@ -1,4 +1,4 @@
-package io.soo.springboot.core.api.controller.v1.request;
+package io.soo.springboot.core.api.controller.v1.health.request;
 
 import io.soo.springboot.core.domain.ExampleData;
 

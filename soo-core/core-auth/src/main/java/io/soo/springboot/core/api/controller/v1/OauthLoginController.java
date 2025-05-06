@@ -1,7 +1,7 @@
 package io.soo.springboot.core.api.controller.v1;
 
-import io.soo.springboot.core.api.controller.v1.request.ExampleRequestDto;
-import io.soo.springboot.core.api.controller.v1.response.ExampleResponseDto;
+import io.soo.springboot.core.api.controller.v1.health.request.ExampleRequestDto;
+import io.soo.springboot.core.api.controller.v1.health.response.ExampleResponseDto;
 import io.soo.springboot.core.domain.ExampleData;
 import io.soo.springboot.core.domain.ExampleResult;
 import io.soo.springboot.core.domain.ExampleService;
