@@ -13,6 +13,7 @@ dependencies {
     /* --- 스프링 스타터 --- */
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
     /* --- JSON 라이브러리 추가 --- */
     implementation 'org.json:json:20250107'
@@ -22,6 +23,12 @@ dependencies {
     annotationProcessor   'org.projectlombok:lombok'
     testCompileOnly       'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
 }
 
 /* annotationProcessor → compileOnly 관계 지정(선택) */
