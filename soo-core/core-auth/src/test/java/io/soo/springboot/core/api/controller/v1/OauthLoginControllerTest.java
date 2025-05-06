@@ -14,6 +14,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 
+import io.soo.springboot.core.api.controller.v1.health.request.ExampleRequestDto;
 import io.soo.springboot.core.domain.ExampleResult;
 import io.soo.springboot.core.domain.ExampleService;
 import io.soo.springboot.test.api.RestDocsTest;
@@ -24,16 +25,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-public class ExampleControllerTest extends RestDocsTest {
+public class OauthLoginControllerTest extends RestDocsTest {
 
     private ExampleService exampleService;
 
-    private ExampleController controller;
+    private OauthLoginController controller;
 
     @BeforeEach
     public void setUp() {
         exampleService = mock(ExampleService.class);
-        controller = new ExampleController(exampleService);
+        controller = new OauthLoginController(exampleService);
         mockMvc = mockController(controller);
     }
 

@@ -75,8 +75,8 @@ storage:
     core:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://localhost:3308/core?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
-      username: root
-      password: rootpassword
+      username: ${STORAGE_CORE_DB_USERNAME}
+      password: ${STORAGE_CORE_DB_PASSWORD}
       maximum-pool-size: 5
       connection-timeout: 1100
       keepalive-time: 30000
