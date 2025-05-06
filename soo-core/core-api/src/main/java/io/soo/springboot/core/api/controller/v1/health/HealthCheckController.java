@@ -24,24 +24,21 @@ import java.util.List;
 public class HealthCheckController {
 
     private final Environment environment;
+
     private final DataSource dataSource;
 
     @GetMapping("/health")
     public ResponseEntity<HealthCheckResponseDto> healthCheck() {
-        AppInfoDto appInfo         = buildAppInfo();
-        DatabaseInfoDto dbInfo     = buildDatabaseInfo();
-        MemoryInfoDto memoryInfo   = buildMemoryInfo();
-        ThreadInfoDto threadInfo   = buildThreadInfo();
-        OSInfoDto osInfo           = buildOsInfo();
-        CpuInfoDto cpuInfo         = buildCpuInfo();
-        List<String> profiles      = getActiveProfiles();
+        AppInfoDto appInfo = buildAppInfo();
+        DatabaseInfoDto dbInfo = buildDatabaseInfo();
+        MemoryInfoDto memoryInfo = buildMemoryInfo();
+        ThreadInfoDto threadInfo = buildThreadInfo();
+        OSInfoDto osInfo = buildOsInfo();
+        CpuInfoDto cpuInfo = buildCpuInfo();
+        List<String> profiles = getActiveProfiles();
 
-        HealthCheckResponseDto response = new HealthCheckResponseDto(
-            "UP", profiles,
-            appInfo, dbInfo,
-            memoryInfo, threadInfo,
-            osInfo, cpuInfo
-        );
+        HealthCheckResponseDto response = new HealthCheckResponseDto("UP", profiles, appInfo, dbInfo, memoryInfo,
+                threadInfo, osInfo, cpuInfo);
         return ResponseEntity.ok(response);
     }
 
@@ -58,55 +55,38 @@ public class HealthCheckController {
             DatabaseMetaData meta = conn.getMetaData();
             String ver = meta.getDatabaseProductName() + " " + meta.getDatabaseProductVersion();
             return new DatabaseInfoDto("UP", ver);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return new DatabaseInfoDto("DOWN", e.getMessage());
         }
     }
 
     private MemoryInfoDto buildMemoryInfo() {
         Runtime rt = Runtime.getRuntime();
-        String total  = formatMb(rt.totalMemory());
-        String free   = formatMb(rt.freeMemory());
-        String max    = formatMb(rt.maxMemory());
+        String total = formatMb(rt.totalMemory());
+        String free = formatMb(rt.freeMemory());
+        String max = formatMb(rt.maxMemory());
         return new MemoryInfoDto(total, free, max);
     }
 
     private ThreadInfoDto buildThreadInfo() {
         ThreadMXBean tmx = ManagementFactory.getThreadMXBean();
-        return new ThreadInfoDto(
-            tmx.getThreadCount(),
-            tmx.getDaemonThreadCount(),
-            tmx.getPeakThreadCount(),
-            tmx.getTotalStartedThreadCount()
-        );
+        return new ThreadInfoDto(tmx.getThreadCount(), tmx.getDaemonThreadCount(), tmx.getPeakThreadCount(),
+                tmx.getTotalStartedThreadCount());
     }
 
     private OSInfoDto buildOsInfo() {
-        OperatingSystemMXBean os = (OperatingSystemMXBean)
-            ManagementFactory.getOperatingSystemMXBean();
-        return new OSInfoDto(
-            os.getName(),
-            os.getVersion(),
-            os.getArch(),
-            os.getAvailableProcessors(),
-            formatGb(os.getTotalMemorySize()),
-            formatGb(os.getFreeMemorySize()),
-            formatGb(os.getTotalSwapSpaceSize()),
-            formatGb(os.getFreeSwapSpaceSize())
-        );
+        OperatingSystemMXBean os = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        return new OSInfoDto(os.getName(), os.getVersion(), os.getArch(), os.getAvailableProcessors(),
+                formatGb(os.getTotalMemorySize()), formatGb(os.getFreeMemorySize()),
+                formatGb(os.getTotalSwapSpaceSize()), formatGb(os.getFreeSwapSpaceSize()));
     }
 
     private CpuInfoDto buildCpuInfo() {
-        OperatingSystemMXBean os = (OperatingSystemMXBean)
-            ManagementFactory.getOperatingSystemMXBean();
+        OperatingSystemMXBean os = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
         String procLoad = String.format("%.2f %%", os.getProcessCpuLoad() * 100);
-        String sysLoad  = String.format("%.2f %%", os.getCpuLoad() * 100);
-        return new CpuInfoDto(
-            os.getAvailableProcessors(),
-            os.getSystemLoadAverage(),
-            procLoad,
-            sysLoad
-        );
+        String sysLoad = String.format("%.2f %%", os.getCpuLoad() * 100);
+        return new CpuInfoDto(os.getAvailableProcessors(), os.getSystemLoadAverage(), procLoad, sysLoad);
     }
 
     private List<String> getActiveProfiles() {
@@ -122,4 +102,5 @@ public class HealthCheckController {
     private static String formatGb(long bytes) {
         return String.format("%.2f GB", bytes / 1024.0 / 1024.0 / 1024.0);
     }
+
 }

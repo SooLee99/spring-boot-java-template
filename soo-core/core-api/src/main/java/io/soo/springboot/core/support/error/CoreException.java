@@ -1,29 +1,24 @@
 package io.soo.springboot.core.support.error;
 
+import lombok.Getter;
+
+@Getter
 public class CoreException extends RuntimeException {
 
-    private final ErrorType errorType;
+    private final ErrorCode errorCode;
 
     private final Object data;
 
-    public CoreException(ErrorType errorType) {
-        super(errorType.getMessage());
-        this.errorType = errorType;
+    public CoreException(ErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
         this.data = null;
     }
 
-    public CoreException(ErrorType errorType, Object data) {
-        super(errorType.getMessage());
-        this.errorType = errorType;
+    public CoreException(ErrorCode errorCode, Object data) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
         this.data = data;
-    }
-
-    public ErrorType getErrorType() {
-        return errorType;
-    }
-
-    public Object getData() {
-        return data;
     }
 
 }
